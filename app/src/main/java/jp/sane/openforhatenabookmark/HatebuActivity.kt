@@ -3,6 +3,7 @@ package jp.sane.openforhatenabookmark
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -13,5 +14,6 @@ class HatebuActivity : AppCompatActivity() {
             return
         }
         val url = intent.data ?: return
+        Toast.makeText(applicationContext, url.toString(), Toast.LENGTH_SHORT).show()
     }
 }
