@@ -10,10 +10,12 @@ class HatebuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hatebu)
-        if (!Intent.ACTION_VIEW.equals(intent.action)) {
-            return
+        when (intent.action) {
+            Intent.ACTION_VIEW -> {
+                val url = intent.data ?: return
+                Toast.makeText(applicationContext, url.toString(), Toast.LENGTH_SHORT).show()
+            }
+            else -> return
         }
-        val url = intent.data ?: return
-        Toast.makeText(applicationContext, url.toString(), Toast.LENGTH_SHORT).show()
     }
 }
