@@ -2,10 +2,10 @@ package jp.sane.openforhatenabookmark
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -14,15 +14,19 @@ class HatebuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_hatebu)
         when (intent.action) {
             Intent.ACTION_VIEW -> {
-                val url = intent.data ?: return
-                Toast.makeText(applicationContext, url.toString(), Toast.LENGTH_SHORT).show()
+                val uri = intent.data ?: return
+                CustomTabsIntent.Builder().build().apply {
+                    launchUrl(applicationContext, uri)
+                }
             }
             Intent.ACTION_SEND -> {
                 val dataString = intent.getStringExtra(Intent.EXTRA_TEXT)
                 if (TextUtils.isEmpty(dataString)) {
                     return
                 }
-                Toast.makeText(applicationContext, Uri.parse(dataString).toString(), Toast.LENGTH_SHORT).show()
+                CustomTabsIntent.Builder().build().apply {
+                    launchUrl(applicationContext, Uri.parse(dataString))
+                }
             }
             else -> return
         }
