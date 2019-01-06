@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import kotlinx.coroutines.runBlocking
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -15,8 +16,11 @@ class HatebuActivity : AppCompatActivity() {
         when (intent.action) {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
-                CustomTabsIntent.Builder().build().apply {
-                    launchUrl(applicationContext, uri)
+                runBlocking {
+                    val canonicalUri = getCanonicalUri(uri)
+                    CustomTabsIntent.Builder().build().apply {
+                        launchUrl(applicationContext, canonicalUri)
+                    }
                 }
             }
             Intent.ACTION_SEND -> {
@@ -24,11 +28,18 @@ class HatebuActivity : AppCompatActivity() {
                 if (TextUtils.isEmpty(dataString)) {
                     return
                 }
-                CustomTabsIntent.Builder().build().apply {
-                    launchUrl(applicationContext, Uri.parse(dataString))
+                runBlocking {
+                    val canonicalUri = getCanonicalUri(Uri.parse(dataString))
+                    CustomTabsIntent.Builder().build().apply {
+                        launchUrl(applicationContext, canonicalUri)
+                    }
                 }
             }
             else -> return
         }
     }
+}
+
+suspend fun getCanonicalUri(uri: Uri): Uri {
+    return uri
 }
