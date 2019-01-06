@@ -12,7 +12,7 @@ import java.net.URI
  */
 class HatebuUnitTest {
     @Test
-    fun example_com() {
-        assertEquals(URI("http://b.hatena.ne.jp/entry/https://example.com"), runBlocking { getEntryUri(URI("https://example.com")) })
+    fun example_com() = runBlocking {
+        assertEquals(URI("http://b.hatena.ne.jp/entry/https://example.com"), getEntryUri(URI("https://example.com")))
     }
 }
