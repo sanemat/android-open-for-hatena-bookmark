@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.net.URI
 
 class HatebuActivity : AppCompatActivity() {
@@ -17,11 +18,12 @@ class HatebuActivity : AppCompatActivity() {
         when (intent.action) {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
-                runBlocking {
+                GlobalScope.launch {
                     val canonicalUri = getCanonicalUri(URI(uri.toString()))
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(applicationContext, Uri.parse(getEntryUri(canonicalUri).toString()))
+                        launchUrl(this@HatebuActivity, Uri.parse(getEntryUri(canonicalUri).toString()))
                     }
+
                 }
             }
             Intent.ACTION_SEND -> {
@@ -29,10 +31,10 @@ class HatebuActivity : AppCompatActivity() {
                 if (TextUtils.isEmpty(dataString)) {
                     return
                 }
-                runBlocking {
+                GlobalScope.launch {
                     val canonicalUri = getCanonicalUri(URI(dataString))
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(applicationContext, Uri.parse(getEntryUri(canonicalUri).toString()))
+                        launchUrl(this@HatebuActivity, Uri.parse(getEntryUri(canonicalUri).toString()))
                     }
                 }
             }
