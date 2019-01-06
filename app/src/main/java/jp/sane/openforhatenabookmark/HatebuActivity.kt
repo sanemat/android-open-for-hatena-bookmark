@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.net.URI
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -16,11 +18,12 @@ class HatebuActivity : AppCompatActivity() {
         when (intent.action) {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
-                runBlocking {
-                    val canonicalUri = getCanonicalUri(uri)
+                GlobalScope.launch {
+                    val canonicalUri = getCanonicalUri(URI(uri.toString()))
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(applicationContext, canonicalUri)
+                        launchUrl(this@HatebuActivity, Uri.parse(getEntryUri(canonicalUri).toString()))
                     }
+
                 }
             }
             Intent.ACTION_SEND -> {
@@ -28,10 +31,10 @@ class HatebuActivity : AppCompatActivity() {
                 if (TextUtils.isEmpty(dataString)) {
                     return
                 }
-                runBlocking {
-                    val canonicalUri = getCanonicalUri(Uri.parse(dataString))
+                GlobalScope.launch {
+                    val canonicalUri = getCanonicalUri(URI(dataString))
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(applicationContext, canonicalUri)
+                        launchUrl(this@HatebuActivity, Uri.parse(getEntryUri(canonicalUri).toString()))
                     }
                 }
             }
@@ -40,6 +43,13 @@ class HatebuActivity : AppCompatActivity() {
     }
 }
 
-suspend fun getCanonicalUri(uri: Uri): Uri {
+suspend fun getCanonicalUri(uri: URI): URI {
     return uri
+}
+
+/**
+ * @see http://b.hatena.ne.jp/help/entry/api
+ */
+suspend fun getEntryUri(uri: URI): URI {
+    return URI("http://b.hatena.ne.jp/entry/" + uri.toString().replace("#", "%23"))
 }
