@@ -1,10 +1,8 @@
 package jp.sane.openforhatenabookmark
 
-import android.net.Uri
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 import java.net.URI
 
 /**
