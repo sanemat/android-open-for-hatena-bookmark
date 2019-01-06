@@ -7,6 +7,7 @@ import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import kotlinx.coroutines.runBlocking
+import java.net.URI
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -17,9 +18,9 @@ class HatebuActivity : AppCompatActivity() {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
                 runBlocking {
-                    val canonicalUri = getCanonicalUri(uri)
+                    val canonicalUri = getCanonicalUri(URI(uri.toString()))
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(applicationContext, canonicalUri)
+                        launchUrl(applicationContext, Uri.parse(getEntryUri(canonicalUri).toString()))
                     }
                 }
             }
@@ -29,9 +30,9 @@ class HatebuActivity : AppCompatActivity() {
                     return
                 }
                 runBlocking {
-                    val canonicalUri = getCanonicalUri(Uri.parse(dataString))
+                    val canonicalUri = getCanonicalUri(URI(dataString))
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(applicationContext, canonicalUri)
+                        launchUrl(applicationContext, Uri.parse(getEntryUri(canonicalUri).toString()))
                     }
                 }
             }
@@ -40,6 +41,13 @@ class HatebuActivity : AppCompatActivity() {
     }
 }
 
-suspend fun getCanonicalUri(uri: Uri): Uri {
+suspend fun getCanonicalUri(uri: URI): URI {
     return uri
+}
+
+/**
+ * @see http://b.hatena.ne.jp/help/entry/api
+ */
+suspend fun getEntryUri(uri: URI): URI {
+    return URI("http://b.hatena.ne.jp/entry/" + uri.toString().replace("#", "%23"))
 }
