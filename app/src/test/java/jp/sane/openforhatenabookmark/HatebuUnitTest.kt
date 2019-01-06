@@ -15,4 +15,9 @@ class HatebuUnitTest {
     fun example_com() = runBlocking {
         assertEquals(URI("http://b.hatena.ne.jp/entry/https://example.com"), getEntryUri(URI("https://example.com")))
     }
+
+    @Test
+    fun example_com_hash() = runBlocking {
+        assertEquals(URI("http://b.hatena.ne.jp/entry/https://example.com%23foo"), getEntryUri(URI("https://example.com#foo")))
+    }
 }
