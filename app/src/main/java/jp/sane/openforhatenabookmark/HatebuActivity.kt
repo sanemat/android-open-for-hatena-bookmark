@@ -9,6 +9,9 @@ import androidx.browser.customtabs.CustomTabsIntent
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URI
+import kotlinx.android.synthetic.main.activity_hatebu.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -20,8 +23,12 @@ class HatebuActivity : AppCompatActivity() {
                 val uri = intent.data ?: return
                 GlobalScope.launch {
                     val canonicalUri = getCanonicalUri(URI(uri.toString()))
+                    val entryUri = getEntryUri(canonicalUri)
+                    withContext(Dispatchers.Main) {
+                        openingURI.text = entryUri.toString()
+                    }
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, Uri.parse(getEntryUri(canonicalUri).toString()))
+                        launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
                     }
 
                 }
@@ -33,8 +40,12 @@ class HatebuActivity : AppCompatActivity() {
                 }
                 GlobalScope.launch {
                     val canonicalUri = getCanonicalUri(URI(dataString))
+                    val entryUri = getEntryUri(canonicalUri)
+                    withContext(Dispatchers.Main) {
+                        openingURI.text = entryUri.toString()
+                    }
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, Uri.parse(getEntryUri(canonicalUri).toString()))
+                        launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
                     }
                 }
             }
