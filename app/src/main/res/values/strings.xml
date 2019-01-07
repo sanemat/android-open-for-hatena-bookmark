@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">For Hatena Bookmark</string>
+    <string name="textview">TextView</string>
 </resources>
