@@ -12,6 +12,7 @@ import java.net.URI
 import kotlinx.android.synthetic.main.activity_hatebu.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -22,8 +23,8 @@ class HatebuActivity : AppCompatActivity() {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
                 GlobalScope.launch {
-                    val canonicalUri = getCanonicalUri(URI(uri.toString()))
-                    val entryUri = getEntryUri(canonicalUri)
+                    val targetUri = getTargetUri(URI(uri.toString()))
+                    val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
                         openingURI.text = entryUri.toString()
                     }
@@ -39,8 +40,8 @@ class HatebuActivity : AppCompatActivity() {
                     return
                 }
                 GlobalScope.launch {
-                    val canonicalUri = getCanonicalUri(URI(dataString))
-                    val entryUri = getEntryUri(canonicalUri)
+                    val targetUri = getTargetUri(URI(dataString))
+                    val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
                         openingURI.text = entryUri.toString()
                     }
@@ -54,8 +55,20 @@ class HatebuActivity : AppCompatActivity() {
     }
 }
 
-suspend fun getCanonicalUri(uri: URI): URI {
+suspend fun getTargetUri(uri: URI): URI {
     return uri
+}
+
+suspend fun getCanonicalUri(html: String): URI? {
+    Jsoup.parse(html).run {
+        val links = getElementsByTag("link")
+        for (i in 0 until links.count()) {
+            if (links[i].hasAttr("rel") && links[i].attr("rel").toLowerCase() == "canonical") {
+                return URI(links[i].attr("href"))
+            }
+        }
+    }
+    return null
 }
 
 /**
