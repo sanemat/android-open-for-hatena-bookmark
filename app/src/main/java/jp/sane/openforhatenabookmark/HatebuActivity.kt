@@ -6,13 +6,14 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.net.URI
 import kotlinx.android.synthetic.main.activity_hatebu.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
+import java.net.URI
+import java.net.URL
 
 class HatebuActivity : AppCompatActivity() {
 
@@ -56,7 +57,7 @@ class HatebuActivity : AppCompatActivity() {
 }
 
 suspend fun getTargetUri(uri: URI): URI {
-    return uri
+    return getCanonicalUri(URL(uri.toString()).readText()) ?: uri
 }
 
 suspend fun getCanonicalUri(html: String): URI? {
