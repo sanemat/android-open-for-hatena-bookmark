@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mozilla.components.support.utils.WebURLFinder
 import org.jsoup.Jsoup
 import java.net.URI
 import java.net.URL
@@ -41,7 +42,8 @@ class HatebuActivity : AppCompatActivity() {
                     return
                 }
                 GlobalScope.launch {
-                    val targetUri = getTargetUri(URI(dataString))
+                    val bestUrl = WebURLFinder(dataString).bestWebURL()
+                    val targetUri = getTargetUri(URI(bestUrl))
                     val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
                         openingURI.text = entryUri.toString()
