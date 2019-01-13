@@ -8,7 +8,7 @@
         tools:context=".HatebuActivity">
 
     <TextView
-            android:text="@string/textview"
+            android:text="@string/expectLink"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/openingURI" tools:text="https://example.com"
