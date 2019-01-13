@@ -1,3 +1,8 @@
+<a name="2.0.1"></a>
+## 2.0.1 (2019-01-13)
+
+- Pick valid url from share via
+
 <a name="2.0.0"></a>
 ## 2.0.0 (2019-01-13)
 
