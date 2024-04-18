@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
-import kotlinx.android.synthetic.main.activity_hatebu.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -16,11 +15,14 @@ import org.jsoup.Jsoup
 import java.net.URI
 import java.net.URL
 
+import jp.sane.openforhatenabookmark.databinding.ActivityHatebuBinding
+
 class HatebuActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHatebuBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hatebu)
+        binding = ActivityHatebuBinding.inflate(layoutInflater)
         when (intent.action) {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
@@ -28,7 +30,7 @@ class HatebuActivity : AppCompatActivity() {
                     val targetUri = getTargetUri(URI(uri.toString()))
                     val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
-                        openingURI.text = entryUri.toString()
+                        binding.openingURI.text = entryUri.toString()
                     }
                     CustomTabsIntent.Builder().build().apply {
                         launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
@@ -46,7 +48,7 @@ class HatebuActivity : AppCompatActivity() {
                     val targetUri = getTargetUri(URI(bestUrl))
                     val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
-                        openingURI.text = entryUri.toString()
+                        binding.openingURI.text = entryUri.toString()
                     }
                     CustomTabsIntent.Builder().build().apply {
                         launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
