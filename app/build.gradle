@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk = 34
+    compileSdk = 33
     defaultConfig {
         applicationId "jp.sane.openforhatenabookmark"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 33
         versionCode 3000001
         versionName "3.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
