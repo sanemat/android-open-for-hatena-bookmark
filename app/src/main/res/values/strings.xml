@@ -2,4 +2,5 @@
     <string name="app_name">For Hatena Bookmark</string>
     <string name="textview">TextView</string>
     <string name="expectLink">(Hatena Bookmark URL)</string>
+    <string name="main_display_text">This app works as a browser. It redirects to the page for Hatena bookmark.</string>
 </resources>
