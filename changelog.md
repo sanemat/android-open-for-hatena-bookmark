@@ -1,3 +1,8 @@
+<a name="3.0.1"></a>
+## 3.0.1 (2024-04-19)
+
+- Update explanation in the app
+
 <a name="3.0.0"></a>
 ## 3.0.0 (2024-04-18)
 
