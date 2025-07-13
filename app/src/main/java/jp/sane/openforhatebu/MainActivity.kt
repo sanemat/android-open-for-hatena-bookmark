@@ -1,4 +1,4 @@
-package jp.sane.openforhatenabookmark
+package jp.sane.openforhatebu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
