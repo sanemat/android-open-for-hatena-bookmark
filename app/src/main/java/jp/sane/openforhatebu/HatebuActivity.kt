@@ -1,4 +1,4 @@
-package jp.sane.openforhatenabookmark
+package jp.sane.openforhatebu
 
 import android.content.Intent
 import android.net.Uri
@@ -15,7 +15,7 @@ import org.jsoup.Jsoup
 import java.net.URI
 import java.net.URL
 
-import jp.sane.openforhatenabookmark.databinding.ActivityHatebuBinding
+import jp.sane.openforhatebu.databinding.ActivityHatebuBinding
 
 class HatebuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHatebuBinding
@@ -68,7 +68,7 @@ suspend fun getCanonicalUri(html: String): URI? {
     Jsoup.parse(html).run {
         val links = getElementsByTag("link")
         for (i in 0 until links.count()) {
-            if (links[i].hasAttr("rel") && links[i].attr("rel").toLowerCase() == "canonical") {
+            if (links[i].hasAttr("rel") && links[i].attr("rel").lowercase() == "canonical") {
                 return URI(links[i].attr("href"))
             }
         }

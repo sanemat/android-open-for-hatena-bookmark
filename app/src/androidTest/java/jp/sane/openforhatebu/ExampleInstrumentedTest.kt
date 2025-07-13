@@ -1,4 +1,4 @@
-package jp.sane.openforhatenabookmark
+package jp.sane.openforhatebu
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("jp.sane.openforhatenabookmark", appContext.packageName)
+        assertEquals("jp.sane.openforhatebu", appContext.packageName)
     }
 }
