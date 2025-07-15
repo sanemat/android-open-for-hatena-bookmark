@@ -39,6 +39,7 @@ dependencies {
     implementation 'androidx.browser:browser:1.8.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
     implementation 'org.jsoup:jsoup:1.18.3'
     implementation "org.mozilla.components:support-utils:$mozilla_components_version"
     testImplementation 'junit:junit:4.13.2'
