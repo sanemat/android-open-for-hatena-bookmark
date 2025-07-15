@@ -26,36 +26,31 @@ class HatebuActivity : AppCompatActivity() {
         when (intent.action) {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
-                lifecycleScope.launch {
-                    val targetUri = getTargetUri(URI(uri.toString()))
-                    val entryUri = getEntryUri(targetUri)
-                    withContext(Dispatchers.Main) {
-                        binding.openingURI.text = entryUri.toString()
-                    }
-                    CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
-                    }
-
-                }
+                val urlString = uri.toString()
+                openHatenabookmarkEntry(urlString)
             }
             Intent.ACTION_SEND -> {
                 val dataString = intent.getStringExtra(Intent.EXTRA_TEXT)
                 if (TextUtils.isEmpty(dataString)) {
                     return
                 }
-                lifecycleScope.launch {
-                    val bestUrl = WebURLFinder(dataString).bestWebURL()
-                    val targetUri = getTargetUri(URI(bestUrl))
-                    val entryUri = getEntryUri(targetUri)
-                    withContext(Dispatchers.Main) {
-                        binding.openingURI.text = entryUri.toString()
-                    }
-                    CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
-                    }
-                }
+                val bestUrl = WebURLFinder(dataString).bestWebURL() ?: return
+                openHatenabookmarkEntry(bestUrl)
             }
             else -> return
+        }
+    }
+
+    private fun openHatenabookmarkEntry(urlString: String) {
+        lifecycleScope.launch {
+            val targetUri = getTargetUri(URI(urlString))
+            val entryUri = getEntryUri(targetUri)
+            withContext(Dispatchers.Main) {
+                binding.openingURI.text = entryUri.toString()
+            }
+            CustomTabsIntent.Builder().build().apply {
+                launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
+            }
         }
     }
 }
