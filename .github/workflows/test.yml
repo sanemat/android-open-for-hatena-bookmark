@@ -28,7 +28,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Initialize Gradle Daemon
-        run: ./gradlew --version
+        run: ./gradlew help
 
       - name: Run lint
         run: ./gradlew lint --parallel --max-workers=2
