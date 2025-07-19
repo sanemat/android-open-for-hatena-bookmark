@@ -12,7 +12,8 @@
             android:usesCleartextTraffic="true"
     >
         <activity android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".HatebuActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
