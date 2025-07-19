@@ -28,10 +28,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run lint
-        run: ./gradlew lint
+        run: ./gradlew lint --parallel --max-workers=2
 
       - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew test --parallel --max-workers=2
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug --parallel
+        run: ./gradlew assembleDebug --parallel --max-workers=2
