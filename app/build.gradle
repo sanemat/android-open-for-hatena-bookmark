@@ -9,8 +9,8 @@ android {
         applicationId "jp.sane.openforhatebu"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 5000002
-        versionName "5.0.2"
+        versionCode 5000003
+        versionName "5.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,7 +33,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation 'androidx.browser:browser:1.8.0'
@@ -43,6 +42,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.18.3'
     implementation "org.mozilla.components:support-utils:$mozilla_components_version"
     testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
