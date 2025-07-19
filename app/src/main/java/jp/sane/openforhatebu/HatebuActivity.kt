@@ -1,7 +1,6 @@
 package jp.sane.openforhatebu
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +15,7 @@ import java.net.URI
 import java.net.URL
 
 import jp.sane.openforhatebu.databinding.ActivityHatebuBinding
+import androidx.core.net.toUri
 
 class HatebuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHatebuBinding
@@ -33,7 +33,7 @@ class HatebuActivity : AppCompatActivity() {
                         binding.openingURI.text = entryUri.toString()
                     }
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
+                        launchUrl(this@HatebuActivity, entryUri.toString().toUri())
                     }
 
                 }
@@ -51,7 +51,7 @@ class HatebuActivity : AppCompatActivity() {
                         binding.openingURI.text = entryUri.toString()
                     }
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, Uri.parse(entryUri.toString()))
+                        launchUrl(this@HatebuActivity, entryUri.toString().toUri())
                     }
                 }
             }
