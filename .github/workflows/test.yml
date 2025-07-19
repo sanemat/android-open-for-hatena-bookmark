@@ -27,6 +27,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Initialize Gradle Daemon
+        run: ./gradlew --version
+
       - name: Run lint
         run: ./gradlew lint --parallel --max-workers=2
 
