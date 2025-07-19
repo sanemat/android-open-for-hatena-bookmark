@@ -7,9 +7,9 @@ import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.lifecycle.lifecycleScope
 import mozilla.components.support.utils.WebURLFinder
 import org.jsoup.Jsoup
 import java.net.URI
@@ -26,7 +26,7 @@ class HatebuActivity : AppCompatActivity() {
         when (intent.action) {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
-                GlobalScope.launch {
+                lifecycleScope.launch {
                     val targetUri = getTargetUri(URI(uri.toString()))
                     val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
@@ -43,7 +43,7 @@ class HatebuActivity : AppCompatActivity() {
                 if (TextUtils.isEmpty(dataString)) {
                     return
                 }
-                GlobalScope.launch {
+                lifecycleScope.launch {
                     val bestUrl = WebURLFinder(dataString).bestWebURL()
                     val targetUri = getTargetUri(URI(bestUrl))
                     val entryUri = getEntryUri(targetUri)
