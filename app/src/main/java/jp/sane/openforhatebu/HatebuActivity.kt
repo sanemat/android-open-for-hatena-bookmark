@@ -61,7 +61,9 @@ class HatebuActivity : AppCompatActivity() {
 }
 
 suspend fun getTargetUri(uri: URI): URI {
-    return getCanonicalUri(URL(uri.toString()).readText()) ?: uri
+    return withContext(Dispatchers.IO) {
+        getCanonicalUri(URL(uri.toString()).readText()) ?: uri
+    }
 }
 
 suspend fun getCanonicalUri(html: String): URI? {
