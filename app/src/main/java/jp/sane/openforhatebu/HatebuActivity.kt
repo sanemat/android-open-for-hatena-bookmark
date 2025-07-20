@@ -24,7 +24,7 @@ class HatebuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        if (BuildConfig.DEBUG) {
+        if (applicationContext.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0) {
             StrictMode.enableDefaults()
         }
         
