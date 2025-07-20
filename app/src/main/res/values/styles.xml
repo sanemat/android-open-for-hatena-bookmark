@@ -10,6 +10,8 @@
 
     <style name="AppTheme.FullScreen" parent="AppTheme">
         <!-- Base theme for all API levels -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
 </resources>
