@@ -1,3 +1,10 @@
+<a name="5.0.5"></a>
+## 5.0.5 (2025-07-20)
+
+- Fix: resolve NetworkOnMainThreadException by moving network calls to IO dispatcher
+- Fix: improve status bar visibility with proper text/icon contrast
+- Feat: add StrictMode for debug builds to catch threading violations early
+
 <a name="5.0.4"></a>
 ## 5.0.4 (2025-07-19)
 
