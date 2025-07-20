@@ -2,6 +2,7 @@ package jp.sane.openforhatebu
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.StrictMode
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
@@ -22,6 +23,11 @@ class HatebuActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        if (applicationContext.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0) {
+            StrictMode.enableDefaults()
+        }
+        
         binding = ActivityHatebuBinding.inflate(layoutInflater)
         when (intent.action) {
             Intent.ACTION_VIEW -> {
