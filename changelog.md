@@ -1,3 +1,11 @@
+<a name="5.0.6"></a>
+## 5.0.6 (2025-07-21)
+
+- Fix: improve status bar visibility on Android 15 (API 35) with proper text contrast
+- Refactor: use IO dispatcher by default for lifecycleScope to prevent main thread blocking
+- Performance: automatically fix ANR issues with Jsoup.parse() and WebURLFinder operations
+- Maintainability: make heavy operations safe by default for future development
+
 <a name="5.0.5"></a>
 ## 5.0.5 (2025-07-20)
 
