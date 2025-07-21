@@ -32,14 +32,14 @@ class HatebuActivity : AppCompatActivity() {
         when (intent.action) {
             Intent.ACTION_VIEW -> {
                 val uri = intent.data ?: return
-                lifecycleScope.launch {
+                lifecycleScope.launch(Dispatchers.IO) {
                     val targetUri = getTargetUri(URI(uri.toString()))
                     val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
                         binding.openingURI.text = entryUri.toString()
-                    }
-                    CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, entryUri.toString().toUri())
+                        CustomTabsIntent.Builder().build().apply {
+                            launchUrl(this@HatebuActivity, entryUri.toString().toUri())
+                        }
                     }
 
                 }
@@ -49,15 +49,15 @@ class HatebuActivity : AppCompatActivity() {
                 if (TextUtils.isEmpty(dataString)) {
                     return
                 }
-                lifecycleScope.launch {
+                lifecycleScope.launch(Dispatchers.IO) {
                     val bestUrl = WebURLFinder(dataString).bestWebURL()
                     val targetUri = getTargetUri(URI(bestUrl))
                     val entryUri = getEntryUri(targetUri)
                     withContext(Dispatchers.Main) {
                         binding.openingURI.text = entryUri.toString()
-                    }
-                    CustomTabsIntent.Builder().build().apply {
-                        launchUrl(this@HatebuActivity, entryUri.toString().toUri())
+                        CustomTabsIntent.Builder().build().apply {
+                            launchUrl(this@HatebuActivity, entryUri.toString().toUri())
+                        }
                     }
                 }
             }
@@ -67,9 +67,7 @@ class HatebuActivity : AppCompatActivity() {
 }
 
 suspend fun getTargetUri(uri: URI): URI {
-    return withContext(Dispatchers.IO) {
-        getCanonicalUri(URL(uri.toString()).readText()) ?: uri
-    }
+    return getCanonicalUri(URL(uri.toString()).readText()) ?: uri
 }
 
 suspend fun getCanonicalUri(html: String): URI? {
