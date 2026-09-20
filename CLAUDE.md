@@ -56,7 +56,7 @@ Processing flow:
 
 - **Package**: `jp.sane.openforhatebu` (changed from original in v5.0.0)
 - **Min SDK**: 24 (Android 7.0)
-- **Target SDK**: 34
-- **Compile SDK**: 34
+- **Target SDK**: 36
+- **Compile SDK**: 36
 - **View Binding**: Enabled
 - **Kotlin Version**: 1.9.23
