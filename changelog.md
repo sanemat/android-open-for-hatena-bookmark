@@ -1,3 +1,9 @@
+<a name="5.0.7"></a>
+## 5.0.7 (2026-09-20)
+
+- Chore: target Android 16 (API 36)
+- Chore(deps): bump Android Gradle Plugin to 8.9.1
+
 <a name="5.0.6"></a>
 ## 5.0.6 (2025-07-21)
 
